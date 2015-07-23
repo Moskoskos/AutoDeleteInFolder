@@ -15,16 +15,24 @@ namespace AutoDeleteInFolder
     public partial class Form1 : Form
     {
         public delegate string watcher();
+        Conditions con = new Conditions();
         public Form1()
         {
             InitializeComponent();
         }
-        string path = "";
+       private string path = "";
+       private string name = "";
+       
         private string Path
         {
 
             get { return path; }
             set { this.path = value; }
+        }
+        private string FileName
+        {
+            get { return name; }
+            set { this.name = value; }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -61,13 +69,11 @@ namespace AutoDeleteInFolder
                  txtPath.Text = Path;
                  UpdateTextBoxes(CheckNumOfFiles(Path), CheckSizeOfFolder(Path), CheckOldestFile(Path));
                 Watch();
-                 
             }
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-
             try
             {
                
@@ -77,8 +83,6 @@ namespace AutoDeleteInFolder
             {
                 MessageBox.Show(ex.Message);               
             }
-
-            
         }
 
         private int CheckNumOfFiles(string sourcePath)
@@ -88,24 +92,34 @@ namespace AutoDeleteInFolder
             {
                 System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(sourcePath);
                 count = dir.GetFiles().Length;
-                
             }
             return count;
         }
         private static double CheckSizeOfFolder(string sourcePath)
         {
-            double rawSize = 0.0;
-            DirectoryInfo dI = new DirectoryInfo(sourcePath);
+           double rawSize = 0.0;
+           DirectoryInfo dI = new DirectoryInfo(sourcePath);
            rawSize =  dI.EnumerateFiles("*", SearchOption.AllDirectories).Sum(fi=> fi.Length);
            rawSize = (rawSize/1024/1024/1024);
-            return rawSize;
+           return rawSize;
         }
         private string CheckOldestFile(string sourcePath)
         {
             var directory = new DirectoryInfo(sourcePath);
             var myFile = directory.GetFiles().OrderByDescending(f => f.LastWriteTime).Last();
             string temp = myFile.ToString();
+            FileName = temp;
             return temp;
+           
+
+            
+        }
+        
+        private DateTime CheckFileCreationDate (string sourcePath, string fileName)
+        {
+            DateTime fileCreatedDate = File.GetCreationTime(sourcePath + "\\" + fileName);
+            lblAge.Text = fileCreatedDate.ToString();
+            return fileCreatedDate;
         }
         
         private void UpdateTextBoxes(int files, double size, string oldest)
@@ -124,7 +138,7 @@ namespace AutoDeleteInFolder
 
 
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
-        public void Watch()
+        private void Watch()
         {
             FileSystemWatcher watcher = new FileSystemWatcher();
             watcher.Path = this.path;
@@ -140,6 +154,14 @@ namespace AutoDeleteInFolder
         private void OnChanged(object source, FileSystemEventArgs e)
         {
             Invoke((MethodInvoker)delegate { UpdateTextBoxes(CheckNumOfFiles(Path), CheckSizeOfFolder(Path), CheckOldestFile(Path)); });
+            Invoke((MethodInvoker)delegate { CheckConditions(); });
+        }
+        private void CheckConditions()
+        {
+            
+            con.TooMany();
+            con.TooMuch();
+            con.TooOld();
         }
     }
 }
