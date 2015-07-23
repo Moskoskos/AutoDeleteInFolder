@@ -92,10 +92,11 @@ namespace AutoDeleteInFolder
             }
             return count;
         }
-        private static long CheckSizeOfFolder(string sourcePath)
+        private static double CheckSizeOfFolder(string sourcePath)
         {
+            double rawSize = 0.0;
             DirectoryInfo dI = new DirectoryInfo(sourcePath);
-           long rawSize =  dI.EnumerateFiles("*", SearchOption.AllDirectories).Sum(fi=> fi.Length);
+           rawSize =  dI.EnumerateFiles("*", SearchOption.AllDirectories).Sum(fi=> fi.Length);
            rawSize = (rawSize/1024/1024/1024);
             return rawSize;
         }
@@ -107,10 +108,17 @@ namespace AutoDeleteInFolder
             return temp;
         }
         
-        private void UpdateTextBoxes(int files, long size, string oldest)
+        private void UpdateTextBoxes(int files, double size, string oldest)
         {
             txtCurFiles.Text = files.ToString();
-            txtCurSize.Text = size.ToString() + "GB";
+            if (size >1000000000)
+            {
+                txtCurSize.Text = size.ToString() + "GB";
+            }
+            else
+            {
+                txtCurSize.Text = size.ToString() + "MB";
+            }
             txtCurOld.Text = oldest;
         }
 

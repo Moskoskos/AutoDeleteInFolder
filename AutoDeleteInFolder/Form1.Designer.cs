@@ -138,7 +138,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(334, 91);
+            this.label5.Location = new System.Drawing.Point(217, 91);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(108, 13);
             this.label5.TabIndex = 12;
@@ -146,7 +146,7 @@
             // 
             // txtCurFiles
             // 
-            this.txtCurFiles.Location = new System.Drawing.Point(337, 107);
+            this.txtCurFiles.Location = new System.Drawing.Point(220, 107);
             this.txtCurFiles.Name = "txtCurFiles";
             this.txtCurFiles.ReadOnly = true;
             this.txtCurFiles.Size = new System.Drawing.Size(62, 20);
@@ -156,7 +156,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(334, 149);
+            this.label6.Location = new System.Drawing.Point(217, 149);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(111, 13);
             this.label6.TabIndex = 14;
@@ -164,7 +164,7 @@
             // 
             // txtCurSize
             // 
-            this.txtCurSize.Location = new System.Drawing.Point(337, 165);
+            this.txtCurSize.Location = new System.Drawing.Point(220, 165);
             this.txtCurSize.Name = "txtCurSize";
             this.txtCurSize.ReadOnly = true;
             this.txtCurSize.Size = new System.Drawing.Size(62, 20);
@@ -174,7 +174,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(334, 204);
+            this.label7.Location = new System.Drawing.Point(217, 204);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(56, 13);
             this.label7.TabIndex = 16;
@@ -182,17 +182,18 @@
             // 
             // txtCurOld
             // 
-            this.txtCurOld.Location = new System.Drawing.Point(337, 220);
+            this.txtCurOld.Location = new System.Drawing.Point(220, 220);
             this.txtCurOld.Name = "txtCurOld";
             this.txtCurOld.ReadOnly = true;
-            this.txtCurOld.Size = new System.Drawing.Size(105, 20);
+            this.txtCurOld.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+            this.txtCurOld.Size = new System.Drawing.Size(200, 20);
             this.txtCurOld.TabIndex = 17;
             this.txtCurOld.Text = "0";
             // 
             // lblAge
             // 
             this.lblAge.AutoSize = true;
-            this.lblAge.Location = new System.Drawing.Point(334, 243);
+            this.lblAge.Location = new System.Drawing.Point(217, 243);
             this.lblAge.Name = "lblAge";
             this.lblAge.Size = new System.Drawing.Size(10, 13);
             this.lblAge.TabIndex = 18;
