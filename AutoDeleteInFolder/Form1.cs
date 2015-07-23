@@ -21,20 +21,15 @@ namespace AutoDeleteInFolder
             InitializeComponent();
         }
        private string path = "";
-       private string name = "";
-       
-        private string Path
-        {
+       private int maxFiles = 0;
+       private int maxSize = 0;
+       private int oldestAllowedFile = 0;
+       private int currentAmoutOfFiles = 0;
+       private int currentSizeOfFolder = 0;
+       private string oldestFile = "";
+       private DateTime fileDate;
 
-            get { return path; }
-            set { this.path = value; }
-        }
-        private string FileName
-        {
-            get { return name; }
-            set { this.name = value; }
-        }
-
+       private string fileName = "";
         private void Form1_Load(object sender, EventArgs e)
         {
             try
@@ -49,15 +44,11 @@ namespace AutoDeleteInFolder
                 {
                     StreamWriter sWrite = new StreamWriter(programFolderPath + "\\options.txt"); 
                 }
-                
             }
             catch (Exception)
             {
                 throw;
             }
-            
-
-                      
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)
@@ -65,75 +56,75 @@ namespace AutoDeleteInFolder
             FolderBrowserDialog fBD = new FolderBrowserDialog();
             if (fBD.ShowDialog() == DialogResult.OK)
             {
-                 Path = fBD.SelectedPath;
-                 txtPath.Text = Path;
-                 UpdateTextBoxes(CheckNumOfFiles(Path), CheckSizeOfFolder(Path), CheckOldestFile(Path));
+                 path = fBD.SelectedPath;
+                 txtPath.Text = path;
+                 UpdateTextBoxes();
                 Watch();
             }
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            
             try
             {
-               
-                UpdateTextBoxes(CheckNumOfFiles(Path), CheckSizeOfFolder(Path), CheckOldestFile(Path));
+                maxFiles = Convert.ToInt32(txtMaxFiles.Text);
+                maxSize = Convert.ToInt32(txtMaxSize.Text);
+                oldestAllowedFile = Convert.ToInt32(txtOldest.Text);
+                CheckConditions();
+                UpdateTextBoxes();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);               
             }
         }
-
-        private int CheckNumOfFiles(string sourcePath)
+        
+        private void CheckNumOfFiles()
         {
             int count = 0;
-            if (sourcePath != "")
+            if (path != "")
             {
-                System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(sourcePath);
+                System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(path);
                 count = dir.GetFiles().Length;
             }
-            return count;
+            currentAmoutOfFiles = count;
         }
-        private static double CheckSizeOfFolder(string sourcePath)
+        private static void CheckSizeOfFolder()
         {
            double rawSize = 0.0;
-           DirectoryInfo dI = new DirectoryInfo(sourcePath);
+           DirectoryInfo dI = new DirectoryInfo(path);
            rawSize =  dI.EnumerateFiles("*", SearchOption.AllDirectories).Sum(fi=> fi.Length);
            rawSize = (rawSize/1024/1024/1024);
-           return rawSize;
+           currentAmoutOfFile = rawSize;
         }
-        private string CheckOldestFile(string sourcePath)
+        private void CheckOldestFile()
         {
-            var directory = new DirectoryInfo(sourcePath);
+            var directory = new DirectoryInfo(path);
             var myFile = directory.GetFiles().OrderByDescending(f => f.LastWriteTime).Last();
             string temp = myFile.ToString();
-            FileName = temp;
-            return temp;
-           
-
-            
+            fileName = temp;
         }
         
-        private DateTime CheckFileCreationDate (string sourcePath, string fileName)
+        private DateTime CheckFileCreationDate (string fileName)
         {
-            DateTime fileCreatedDate = File.GetCreationTime(sourcePath + "\\" + fileName);
+            DateTime fileCreatedDate = File.GetCreationTime(path + "\\" + fileName);
             lblAge.Text = fileCreatedDate.ToString();
             return fileCreatedDate;
         }
         
-        private void UpdateTextBoxes(int files, double size, string oldest)
+        private void UpdateTextBoxes()
         {
-            txtCurFiles.Text = files.ToString();
-            if (size >1000000000)
+            txtCurFiles.Text = currentAmoutOfFiles.ToString();
+            if (currentSizeOfFolder > 1000000000)
             {
-                txtCurSize.Text = size.ToString() + "GB";
+                txtCurSize.Text = currentSizeOfFolder.ToString() + "GB";
             }
             else
             {
-                txtCurSize.Text = size.ToString() + "MB";
+                txtCurSize.Text = currentSizeOfFolder.ToString() + "MB";
             }
-            txtCurOld.Text = oldest;
+            txtCurOld.Text = oldestFile;
         }
 
 
@@ -142,7 +133,7 @@ namespace AutoDeleteInFolder
         {
             FileSystemWatcher watcher = new FileSystemWatcher();
             watcher.Path = this.path;
-
+            
             watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName;
 
             watcher.Changed += new FileSystemEventHandler(OnChanged);
@@ -153,15 +144,24 @@ namespace AutoDeleteInFolder
         }
         private void OnChanged(object source, FileSystemEventArgs e)
         {
-            Invoke((MethodInvoker)delegate { UpdateTextBoxes(CheckNumOfFiles(Path), CheckSizeOfFolder(Path), CheckOldestFile(Path)); });
+            Invoke((MethodInvoker)delegate { UpdateTextBoxes(); });
             Invoke((MethodInvoker)delegate { CheckConditions(); });
         }
         private void CheckConditions()
         {
+            bool tooManyFiles = false;
+            bool tooBig = false;
+            bool tooOld = false;
             
-            con.TooMany();
-            con.TooMuch();
-            con.TooOld();
+            tooManyFiles = con.TooMany(maxFiles,currentAmoutOfFiles);
+            tooBig = con.TooMuch(maxSize, currentSizeOfFolder);
+            tooOld = con.TooOld(oldestAllowedFile, fileDate);
+
+            if (tooManyFiles == true || tooBig == true || tooOld == true)
+            {
+                
+            }
         }
+        
     }
 }

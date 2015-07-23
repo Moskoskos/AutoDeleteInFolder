@@ -32,9 +32,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtPath = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtTotalFiles = new System.Windows.Forms.TextBox();
+            this.txtMaxFiles = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.txtSize = new System.Windows.Forms.TextBox();
+            this.txtMaxSize = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txtOldest = new System.Windows.Forms.TextBox();
             this.btnUpdate = new System.Windows.Forms.Button();
@@ -70,6 +70,7 @@
             // 
             this.txtPath.Location = new System.Drawing.Point(15, 52);
             this.txtPath.Name = "txtPath";
+            this.txtPath.ReadOnly = true;
             this.txtPath.Size = new System.Drawing.Size(312, 20);
             this.txtPath.TabIndex = 2;
             this.txtPath.Text = "Example: C:\\Users\\Admin\\Moves\\Recorded";
@@ -83,13 +84,13 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Maximum Amount of Files";
             // 
-            // txtTotalFiles
+            // txtMaxFiles
             // 
-            this.txtTotalFiles.Location = new System.Drawing.Point(15, 107);
-            this.txtTotalFiles.Name = "txtTotalFiles";
-            this.txtTotalFiles.Size = new System.Drawing.Size(63, 20);
-            this.txtTotalFiles.TabIndex = 4;
-            this.txtTotalFiles.Text = "0";
+            this.txtMaxFiles.Location = new System.Drawing.Point(15, 107);
+            this.txtMaxFiles.Name = "txtMaxFiles";
+            this.txtMaxFiles.Size = new System.Drawing.Size(63, 20);
+            this.txtMaxFiles.TabIndex = 4;
+            this.txtMaxFiles.Text = "0";
             // 
             // label3
             // 
@@ -100,13 +101,13 @@
             this.label3.TabIndex = 6;
             this.label3.Text = "Maximum Size of Folder Allowed(GB)";
             // 
-            // txtSize
+            // txtMaxSize
             // 
-            this.txtSize.Location = new System.Drawing.Point(15, 165);
-            this.txtSize.Name = "txtSize";
-            this.txtSize.Size = new System.Drawing.Size(63, 20);
-            this.txtSize.TabIndex = 7;
-            this.txtSize.Text = "0";
+            this.txtMaxSize.Location = new System.Drawing.Point(15, 165);
+            this.txtMaxSize.Name = "txtMaxSize";
+            this.txtMaxSize.Size = new System.Drawing.Size(63, 20);
+            this.txtMaxSize.TabIndex = 7;
+            this.txtMaxSize.Text = "0";
             // 
             // label4
             // 
@@ -214,9 +215,9 @@
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.txtOldest);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.txtSize);
+            this.Controls.Add(this.txtMaxSize);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.txtTotalFiles);
+            this.Controls.Add(this.txtMaxFiles);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtPath);
             this.Controls.Add(this.label1);
@@ -235,9 +236,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtPath;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtTotalFiles;
+        private System.Windows.Forms.TextBox txtMaxFiles;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtSize;
+        private System.Windows.Forms.TextBox txtMaxSize;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtOldest;
         private System.Windows.Forms.Button btnUpdate;
