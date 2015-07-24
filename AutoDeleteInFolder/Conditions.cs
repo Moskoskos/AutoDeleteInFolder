@@ -39,7 +39,7 @@ namespace AutoDeleteInFolder
         /// <param name="limit"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public bool TooMuch(int limit, int value)
+        public bool TooMuch(double limit, double value)
         {
             if (limit == 0)
             {
@@ -59,12 +59,12 @@ namespace AutoDeleteInFolder
         {
             if (userInput == 0)
             {
-                userInput = 99999999;   
+                userInput = 99999;   
             }
             DateTime limit;
             limit = DateTime.Now.AddDays(-userInput);
            
-            if (limit < value)
+            if (limit > value)
             {
                 return true;
             }

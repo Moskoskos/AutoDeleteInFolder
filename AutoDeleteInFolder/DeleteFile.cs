@@ -13,14 +13,14 @@ namespace AutoDeleteInFolder
 
         }
 
-        public void Delete(string folder, string file)
+        public void Delete(string folder, string fileName)
         {
-        string[] fileList = System.IO.Directory.GetFiles(rootFolderPath, filesToDelete);
-        foreach(string file in fileList)
-        {
-            System.Diagnostics.Debug.WriteLine(file + "will be deleted");
-        //  System.IO.File.Delete(file);
+            string file = folder+"\\"+fileName;
+            if (System.IO.File.Exists(file))
+            {
+                System.IO.File.Delete(file);
             }
+        
         }
     }
 }
