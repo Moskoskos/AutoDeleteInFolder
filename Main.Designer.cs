@@ -45,12 +45,11 @@
             this.label7 = new System.Windows.Forms.Label();
             this.txtCurOld = new System.Windows.Forms.TextBox();
             this.lblAge = new System.Windows.Forms.Label();
-            this.chkStartUp = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btnBrowse
             // 
-            this.btnBrowse.Location = new System.Drawing.Point(337, 49);
+            this.btnBrowse.Location = new System.Drawing.Point(337, 24);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Size = new System.Drawing.Size(83, 23);
             this.btnBrowse.TabIndex = 0;
@@ -61,7 +60,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 36);
+            this.label1.Location = new System.Drawing.Point(12, 11);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(86, 13);
             this.label1.TabIndex = 1;
@@ -69,7 +68,7 @@
             // 
             // txtPath
             // 
-            this.txtPath.Location = new System.Drawing.Point(15, 52);
+            this.txtPath.Location = new System.Drawing.Point(15, 27);
             this.txtPath.Name = "txtPath";
             this.txtPath.ReadOnly = true;
             this.txtPath.Size = new System.Drawing.Size(312, 20);
@@ -79,7 +78,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 91);
+            this.label2.Location = new System.Drawing.Point(12, 66);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(126, 13);
             this.label2.TabIndex = 3;
@@ -87,7 +86,7 @@
             // 
             // txtMaxFiles
             // 
-            this.txtMaxFiles.Location = new System.Drawing.Point(15, 107);
+            this.txtMaxFiles.Location = new System.Drawing.Point(15, 82);
             this.txtMaxFiles.Name = "txtMaxFiles";
             this.txtMaxFiles.Size = new System.Drawing.Size(63, 20);
             this.txtMaxFiles.TabIndex = 4;
@@ -96,7 +95,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 149);
+            this.label3.Location = new System.Drawing.Point(12, 124);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(179, 13);
             this.label3.TabIndex = 6;
@@ -104,7 +103,7 @@
             // 
             // txtMaxSize
             // 
-            this.txtMaxSize.Location = new System.Drawing.Point(15, 165);
+            this.txtMaxSize.Location = new System.Drawing.Point(15, 140);
             this.txtMaxSize.Name = "txtMaxSize";
             this.txtMaxSize.Size = new System.Drawing.Size(63, 20);
             this.txtMaxSize.TabIndex = 7;
@@ -113,7 +112,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 204);
+            this.label4.Location = new System.Drawing.Point(12, 179);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(151, 13);
             this.label4.TabIndex = 9;
@@ -121,7 +120,7 @@
             // 
             // txtOldest
             // 
-            this.txtOldest.Location = new System.Drawing.Point(15, 220);
+            this.txtOldest.Location = new System.Drawing.Point(15, 195);
             this.txtOldest.Name = "txtOldest";
             this.txtOldest.Size = new System.Drawing.Size(63, 20);
             this.txtOldest.TabIndex = 10;
@@ -129,7 +128,7 @@
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(12, 263);
+            this.btnUpdate.Location = new System.Drawing.Point(12, 238);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(83, 23);
             this.btnUpdate.TabIndex = 11;
@@ -140,7 +139,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(217, 91);
+            this.label5.Location = new System.Drawing.Point(217, 66);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(108, 13);
             this.label5.TabIndex = 12;
@@ -148,7 +147,7 @@
             // 
             // txtCurFiles
             // 
-            this.txtCurFiles.Location = new System.Drawing.Point(220, 107);
+            this.txtCurFiles.Location = new System.Drawing.Point(220, 82);
             this.txtCurFiles.Name = "txtCurFiles";
             this.txtCurFiles.ReadOnly = true;
             this.txtCurFiles.Size = new System.Drawing.Size(62, 20);
@@ -158,7 +157,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(217, 149);
+            this.label6.Location = new System.Drawing.Point(217, 124);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(111, 13);
             this.label6.TabIndex = 14;
@@ -166,7 +165,7 @@
             // 
             // txtCurSize
             // 
-            this.txtCurSize.Location = new System.Drawing.Point(220, 165);
+            this.txtCurSize.Location = new System.Drawing.Point(220, 140);
             this.txtCurSize.Name = "txtCurSize";
             this.txtCurSize.ReadOnly = true;
             this.txtCurSize.Size = new System.Drawing.Size(62, 20);
@@ -176,7 +175,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(217, 204);
+            this.label7.Location = new System.Drawing.Point(217, 179);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(56, 13);
             this.label7.TabIndex = 16;
@@ -184,7 +183,7 @@
             // 
             // txtCurOld
             // 
-            this.txtCurOld.Location = new System.Drawing.Point(220, 220);
+            this.txtCurOld.Location = new System.Drawing.Point(220, 195);
             this.txtCurOld.Name = "txtCurOld";
             this.txtCurOld.ReadOnly = true;
             this.txtCurOld.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
@@ -195,28 +194,17 @@
             // lblAge
             // 
             this.lblAge.AutoSize = true;
-            this.lblAge.Location = new System.Drawing.Point(217, 243);
+            this.lblAge.Location = new System.Drawing.Point(217, 218);
             this.lblAge.Name = "lblAge";
             this.lblAge.Size = new System.Drawing.Size(10, 13);
             this.lblAge.TabIndex = 18;
             this.lblAge.Text = " ";
             // 
-            // chkStartUp
-            // 
-            this.chkStartUp.AutoSize = true;
-            this.chkStartUp.Location = new System.Drawing.Point(111, 267);
-            this.chkStartUp.Name = "chkStartUp";
-            this.chkStartUp.Size = new System.Drawing.Size(136, 17);
-            this.chkStartUp.TabIndex = 19;
-            this.chkStartUp.Text = "Start at Windows Login";
-            this.chkStartUp.UseVisualStyleBackColor = true;
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(477, 318);
-            this.Controls.Add(this.chkStartUp);
+            this.ClientSize = new System.Drawing.Size(441, 272);
             this.Controls.Add(this.lblAge);
             this.Controls.Add(this.txtCurOld);
             this.Controls.Add(this.label7);
@@ -261,7 +249,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtCurOld;
         private System.Windows.Forms.Label lblAge;
-        private System.Windows.Forms.CheckBox chkStartUp;
     }
 }
 

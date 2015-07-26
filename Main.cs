@@ -91,6 +91,7 @@ namespace AutoDeleteInFolder
                     maxSize = Convert.ToInt32(txtMaxSize.Text);
                     oldestAllowedFile = Convert.ToInt32(txtOldest.Text);
                     WriteToFile();
+                    UpdateAll();
                 }
             }
             catch (Exception ex)
