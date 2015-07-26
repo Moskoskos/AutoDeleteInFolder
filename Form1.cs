@@ -14,22 +14,21 @@ namespace AutoDeleteInFolder
 {
     public partial class Form1 : Form
     {
-        private string path = "";
+        private string folderPath = "";
         private int maxFiles = 0;
-        private double maxSize = 0.0;
+        private int maxSize = 0;
         private int oldestAllowedFile = 0;
         private int currentAmoutOfFiles = 0;
         private double currentSizeOfFolder = 0.0;
-        private DateTime fileDate;
         private string fileName = "";
         private string optionsFile = "";
-        private string[] options;
+        private string[] optionsArray;
         public delegate string watcher();
         Conditions con = new Conditions();
         public Form1()
         {
             InitializeComponent();
-            options = new string[3];
+            optionsArray = new string[4] {"","","",""};
         }
      
 
@@ -43,14 +42,17 @@ namespace AutoDeleteInFolder
                 optionsFile = optionFile;
                 if   (File.Exists(optionFile))
                 {
-                    options = File.ReadAllLines(optionsFile);
+                    
+                    ReadFromFile();
                     InitSettings();
+                    UpdateTextBoxes();
+                    UpdateAll();
+                    Watch();
                 }
                 else
                 {
                     Directory.CreateDirectory(pathWithName);
                     File.WriteAllText(optionFile, ("0\r\n" + "0\r\n" + "0\r\n"));
-                    
                 }
             }
             catch (Exception)
@@ -64,13 +66,10 @@ namespace AutoDeleteInFolder
             FolderBrowserDialog fBD = new FolderBrowserDialog();
             if (fBD.ShowDialog() == DialogResult.OK)
             {
-                txtMaxFiles.Text = Convert.ToString(0);
-                txtMaxSize.Text = Convert.ToString(0);
-                txtOldest.Text = Convert.ToString(0);
-                 path = fBD.SelectedPath;
-                 txtPath.Text = path;
-                 UpdateAll();
-                 Watch();
+                folderPath = fBD.SelectedPath;
+                txtPath.Text = folderPath;
+                WriteToFile();
+                Watch();
             }
         }
 
@@ -78,14 +77,13 @@ namespace AutoDeleteInFolder
         {
             try
             {
-                DialogResult dia = MessageBox.Show("By updating the settings any files in the selected folder will be deleted if they meet the spesified critera. Are you sure you want to proceed?", "WARNING!",MessageBoxButtons.YesNo);
+                DialogResult dia = MessageBox.Show("By updating the settings any files in the selected folder will be deleted if they do not meet the spesified critera. Are you sure you want to proceed?", "WARNING!",MessageBoxButtons.YesNo);
                 if (dia == DialogResult.Yes)
                 {
                     maxFiles = Convert.ToInt32(txtMaxFiles.Text);
                     maxSize = Convert.ToInt32(txtMaxSize.Text);
                     oldestAllowedFile = Convert.ToInt32(txtOldest.Text);
-                    UpdateAll();
-                    Watch();
+                    WriteToFile();
                 }
             }
             catch (Exception ex)
@@ -97,9 +95,9 @@ namespace AutoDeleteInFolder
         private void CheckNumOfFiles()
         {
             int count = 0;
-            if (path != "")
+            if (folderPath != "")
             {
-                System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(path);
+                System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(folderPath);
                 count = dir.GetFiles().Length;
             }
             currentAmoutOfFiles = count;
@@ -117,7 +115,7 @@ namespace AutoDeleteInFolder
         }
         private void CheckOldestFile()
         {
-            var directory = new DirectoryInfo(path);
+            var directory = new DirectoryInfo(folderPath);
             var myFile = directory.GetFiles().OrderByDescending(f => f.LastWriteTime).Last();
             string temp = myFile.ToString();
             fileName = temp;
@@ -125,7 +123,7 @@ namespace AutoDeleteInFolder
         
         private DateTime CheckFileCreationDate ()
         {
-            DateTime fileCreatedDate = File.GetLastWriteTime(path + "\\" + fileName);
+            DateTime fileCreatedDate = File.GetLastWriteTime(folderPath + "\\" + fileName);
             lblAge.Text = "File Created: "+ fileCreatedDate.ToString();
             return fileCreatedDate;
         }
@@ -136,6 +134,9 @@ namespace AutoDeleteInFolder
             txtCurFiles.Text = currentAmoutOfFiles.ToString();
             txtCurSize.Text = Math.Round((temp),2).ToString() + "GB";
             txtCurOld.Text = fileName;
+            txtMaxFiles.Text = Convert.ToString(maxFiles);
+            txtMaxSize.Text = Convert.ToString(maxSize);
+            txtOldest.Text = Convert.ToString(oldestAllowedFile);
         }
 
 
@@ -143,7 +144,7 @@ namespace AutoDeleteInFolder
         private void Watch()
         {
             FileSystemWatcher watcher = new FileSystemWatcher();
-            watcher.Path = this.path;
+            watcher.Path = this.folderPath;
             
             watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName;
 
@@ -156,7 +157,7 @@ namespace AutoDeleteInFolder
         private void OnChanged(object source, FileSystemEventArgs e)
         {
             CheckNumOfFiles();
-            currentSizeOfFolder = CheckSizeOfFolder(path);
+            currentSizeOfFolder = CheckSizeOfFolder(folderPath);
             CheckOldestFile();
             Invoke((MethodInvoker)delegate { UpdateTextBoxes(); });
             Invoke((MethodInvoker)delegate { CheckConditions(); });
@@ -181,7 +182,7 @@ namespace AutoDeleteInFolder
                 try
                 {
                     DeleteFile del = new DeleteFile();
-                    del.Delete(path, fileName);
+                    del.Delete(folderPath, fileName);
                     UpdateAll();
                     
                 }
@@ -195,28 +196,41 @@ namespace AutoDeleteInFolder
            private void UpdateAll()
             {
                 CheckNumOfFiles();
-                currentSizeOfFolder = CheckSizeOfFolder(path);
+                currentSizeOfFolder = CheckSizeOfFolder(folderPath);
                 CheckOldestFile();
                 UpdateTextBoxes();
                 CheckConditions();
             }
            private void ReadFromFile()
            {
-               if (!File.Exists(optionsFile))
+               if (File.Exists(optionsFile))
                {
-                   options = File.ReadAllLines(optionsFile);
+                   optionsArray = File.ReadAllLines(optionsFile);
                }
            }
           private void WriteToFile()
            {
-             
+               optionsArray[0] = maxFiles.ToString();
+               optionsArray[1] = maxSize.ToString();
+               optionsArray[2] = oldestAllowedFile.ToString();
+                  // File.WriteAllLines(optionsFile, options);
+                   using (System.IO.StreamWriter file =
+                new System.IO.StreamWriter(optionsFile))
+                   {
+                       foreach (string line in optionsArray)
+                       {
+                               file.WriteLine(line);
+                       }
+                   }
            }
         private void InitSettings()
           {
-              maxFiles = Convert.ToInt32(options[0]);
-              maxSize = Convert.ToInt32(options[1]);
-              oldestAllowedFile = Convert.ToInt32(options[2]);
+              maxFiles = Convert.ToInt32(optionsArray[0]);
+              maxSize = Convert.ToInt32(optionsArray[1]);
+              oldestAllowedFile = Convert.ToInt32(optionsArray[2]);
           }
+        
+    
 
         }
         
