@@ -12,7 +12,7 @@ using System.Security.Permissions;
 
 namespace AutoDeleteInFolder
 {
-    public partial class Form1 : Form
+    public partial class Main : Form
     {
         private string folderPath = "";
         private int maxFiles = 0;
@@ -25,10 +25,10 @@ namespace AutoDeleteInFolder
         private string[] optionsArray;
         public delegate string watcher();
         Conditions con = new Conditions();
-        public Form1()
+        public Main()
         {
             InitializeComponent();
-            optionsArray = new string[4] {"","","",""};
+            optionsArray = new string[5] {"","","","",""};
         }
      
 
@@ -44,6 +44,12 @@ namespace AutoDeleteInFolder
                 {
                     
                     ReadFromFile();
+                    if (optionsArray[4] == "1")
+                    {
+                        txtPath.Text = optionsArray[3];
+                        folderPath = optionsArray[3];
+
+                    }
                     InitSettings();
                     UpdateTextBoxes();
                     UpdateAll();
@@ -52,7 +58,7 @@ namespace AutoDeleteInFolder
                 else
                 {
                     Directory.CreateDirectory(pathWithName);
-                    File.WriteAllText(optionFile, ("0\r\n" + "0\r\n" + "0\r\n"));
+                    File.WriteAllText(optionFile, ("0\r\n" + "0\r\n" + "0\r\n" + "0\r\n" + "0\r\n"));
                 }
             }
             catch (Exception)
@@ -69,6 +75,7 @@ namespace AutoDeleteInFolder
                 folderPath = fBD.SelectedPath;
                 txtPath.Text = folderPath;
                 WriteToFile();
+                UpdateAll();
                 Watch();
             }
         }
@@ -213,9 +220,10 @@ namespace AutoDeleteInFolder
                optionsArray[0] = maxFiles.ToString();
                optionsArray[1] = maxSize.ToString();
                optionsArray[2] = oldestAllowedFile.ToString();
+               optionsArray[3] = folderPath;
+               optionsArray[4] = "1";
                   // File.WriteAllLines(optionsFile, options);
-                   using (System.IO.StreamWriter file =
-                new System.IO.StreamWriter(optionsFile))
+                   using (System.IO.StreamWriter file = new System.IO.StreamWriter(optionsFile))
                    {
                        foreach (string line in optionsArray)
                        {
@@ -225,10 +233,14 @@ namespace AutoDeleteInFolder
            }
         private void InitSettings()
           {
+
               maxFiles = Convert.ToInt32(optionsArray[0]);
               maxSize = Convert.ToInt32(optionsArray[1]);
               oldestAllowedFile = Convert.ToInt32(optionsArray[2]);
+           
           }
+          
+
         
     
 

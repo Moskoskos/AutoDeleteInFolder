@@ -1,6 +1,6 @@
 ﻿namespace AutoDeleteInFolder
 {
-    partial class Form1
+    partial class Main
     {
         /// <summary>
         /// Required designer variable.
@@ -45,6 +45,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.txtCurOld = new System.Windows.Forms.TextBox();
             this.lblAge = new System.Windows.Forms.Label();
+            this.chkStartUp = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btnBrowse
@@ -200,11 +201,22 @@
             this.lblAge.TabIndex = 18;
             this.lblAge.Text = " ";
             // 
-            // Form1
+            // chkStartUp
+            // 
+            this.chkStartUp.AutoSize = true;
+            this.chkStartUp.Location = new System.Drawing.Point(111, 267);
+            this.chkStartUp.Name = "chkStartUp";
+            this.chkStartUp.Size = new System.Drawing.Size(136, 17);
+            this.chkStartUp.TabIndex = 19;
+            this.chkStartUp.Text = "Start at Windows Login";
+            this.chkStartUp.UseVisualStyleBackColor = true;
+            // 
+            // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(477, 318);
+            this.Controls.Add(this.chkStartUp);
             this.Controls.Add(this.lblAge);
             this.Controls.Add(this.txtCurOld);
             this.Controls.Add(this.label7);
@@ -222,8 +234,8 @@
             this.Controls.Add(this.txtPath);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnBrowse);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "Main";
+            this.Text = "AutoDeleteInFolder";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -249,6 +261,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtCurOld;
         private System.Windows.Forms.Label lblAge;
+        private System.Windows.Forms.CheckBox chkStartUp;
     }
 }
 
