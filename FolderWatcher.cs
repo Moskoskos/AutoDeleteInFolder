@@ -7,6 +7,8 @@ using System.IO;
 using System.Security.Permissions;
 namespace AutoDeleteInFolder
 {
+
+    //Unused.
     public class FolderWatcher
     {
         public string path;

@@ -57,12 +57,13 @@ namespace AutoDeleteInFolder
         
         public bool TooOld(int userInput, DateTime value)
         {
+            DateTime limit = DateTime.Now.AddDays(-userInput);
             if (userInput == 0)
             {
-                userInput = 99999;   
+                
+                limit = DateTime.MinValue; ;   
             }
-            DateTime limit;
-            limit = DateTime.Now.AddDays(-userInput);
+            
            
             if (limit > value)
             {

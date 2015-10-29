@@ -129,7 +129,7 @@ namespace AutoDeleteInFolder
             fileName = temp;
         }
         
-        private DateTime CheckFileCreationDate ()
+        private DateTime CheckFileCreationDate()
         {
             DateTime fileCreatedDate = File.GetLastWriteTime(folderPath + "\\" + fileName);
             lblAge.Text = "File Created: "+ fileCreatedDate.ToString();
