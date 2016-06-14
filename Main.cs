@@ -14,14 +14,14 @@ namespace AutoDeleteInFolder
 {
     public partial class Main : Form
     {
-        private string folderPath = "";
-        private int maxFiles = 0;
-        private int maxSize = 0;
-        private int oldestAllowedFile = 0;
-        private int currentAmoutOfFiles = 0;
-        private double currentSizeOfFolder = 0.0;
-        private string fileName = "";
-        private string optionsFile = "";
+        private string folderPath = ""; 
+        private int maxFiles = 0; //Maximum number of files.
+        private int maxSize = 0; //Maximum size of the folder.
+        private int oldestAllowedFile = 0; //How long a file should remain in the folder.
+        private int currentAmoutOfFiles = 0; //Number of files being monitored.
+        private double currentSizeOfFolder = 0.0; //Size of folder which is monitored.
+        private string fileName = ""; //Name of the selected file.
+        private string optionsTxtFile = ""; //Name of the options.txt file.
         private string[] optionsArray;
         public delegate string watcher();
         Conditions con = new Conditions();
@@ -36,14 +36,20 @@ namespace AutoDeleteInFolder
         {
             try
             {
+                //Finds the default system folder for application data.
                 var systemPath = System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+                //States the specifed application folder for the application.
                 var pathWithName = systemPath + @"\AutoDeleteInFolder\";
+                //States the specified application options file.
                 var optionFile = pathWithName + "options.txt";
-                optionsFile = optionFile;
+                //In-between-storage of content for optionFile
+                optionsTxtFile = optionFile;
+                //Check if options file is created.
                 if   (File.Exists(optionFile))
                 {
-                    
+                    //Reads settings from file.
                     ReadFromFile();
+                    //Checks whether options have file has been initialized, if so, the program gets the path of the monitored folder.
                     if (optionsArray[4] == "1")
                     {
                         txtPath.Text = optionsArray[3];
@@ -57,6 +63,7 @@ namespace AutoDeleteInFolder
                 }
                 else
                 {
+                    //if the options file doesnt exists, create file and create default settings.
                     Directory.CreateDirectory(pathWithName);
                     File.WriteAllText(optionFile, ("0\r\n" + "0\r\n" + "0\r\n" + "0\r\n" + "0\r\n"));
                 }
@@ -69,6 +76,7 @@ namespace AutoDeleteInFolder
 
         private void btnBrowse_Click(object sender, EventArgs e)
         {
+            //Opens a dialog box to choose the folder to monitor.
             FolderBrowserDialog fBD = new FolderBrowserDialog();
             if (fBD.ShowDialog() == DialogResult.OK)
             {
@@ -211,9 +219,9 @@ namespace AutoDeleteInFolder
             }
            private void ReadFromFile()
            {
-               if (File.Exists(optionsFile))
+               if (File.Exists(optionsTxtFile))
                {
-                   optionsArray = File.ReadAllLines(optionsFile);
+                   optionsArray = File.ReadAllLines(optionsTxtFile);
                }
            }
           private void WriteToFile()
@@ -224,7 +232,7 @@ namespace AutoDeleteInFolder
                optionsArray[3] = folderPath;
                optionsArray[4] = "1";
                   // File.WriteAllLines(optionsFile, options);
-                   using (System.IO.StreamWriter file = new System.IO.StreamWriter(optionsFile))
+                   using (System.IO.StreamWriter file = new System.IO.StreamWriter(optionsTxtFile))
                    {
                        foreach (string line in optionsArray)
                        {
