@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Security.Permissions;
 
+
 namespace AutoDeleteInFolder
 {
     public partial class Main : Form
@@ -68,9 +69,9 @@ namespace AutoDeleteInFolder
                     File.WriteAllText(optionFile, ("0\r\n" + "0\r\n" + "0\r\n" + "0\r\n" + "0\r\n"));
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -117,24 +118,59 @@ namespace AutoDeleteInFolder
                 count = dir.GetFiles().Length;
             }
             currentAmoutOfFiles = count;
+            Invoke((MethodInvoker)delegate { NumOfFilesStatus(); });
+            
+            
+
         }
+
+        private void NumOfFilesStatus()
+        {
+            if (currentAmoutOfFiles == 0)
+            {
+                txtColor.Visible = true;
+                txtColor.BackColor = Color.Red;
+                lblNoFiles.Visible = true;
+            }
+            else
+            {
+                txtColor.Visible = false;
+                lblNoFiles.Visible = false;
+            }
+        }
+
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         private static double CheckSizeOfFolder(string path)
         {
            long rawSize = 0;
            double size = 0.0;
+            //Creates object to read info from desierd path.
            DirectoryInfo dI = new DirectoryInfo(path);
 
+            //Gets the raw size of the folder in bytes. To be honest I dont fully understand this code. Thanks StackOverFlow!
            rawSize =  dI.EnumerateFiles("*", SearchOption.AllDirectories).Sum(fi=> fi.Length);
+            //We are not interested in kilos or megas. Only gigas count.
            size = rawSize / 1024 / 1024 / 1024;
            return size;
         }
         private void CheckOldestFile()
         {
-            var directory = new DirectoryInfo(folderPath);
-            var myFile = directory.GetFiles().OrderByDescending(f => f.LastWriteTime).Last();
-            string temp = myFile.ToString();
-            fileName = temp;
+            //Create object to read info from desierd direction
+            
+            try
+            {
+                var directory = new DirectoryInfo(folderPath);
+                var myFile = directory.GetFiles().OrderByDescending(f => f.LastWriteTime).Last();
+                string temp = myFile.ToString();
+                fileName = temp;
+                txtColor.Visible = false;
+                lblNoFiles.Visible = false;
+            }
+            catch (Exception ex)
+            {
+                
+
+            }
         }
         
         private DateTime CheckFileCreationDate()
@@ -154,6 +190,8 @@ namespace AutoDeleteInFolder
             txtMaxSize.Text = Convert.ToString(maxSize);
             txtOldest.Text = Convert.ToString(oldestAllowedFile);
         }
+
+
 
 
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
@@ -178,6 +216,7 @@ namespace AutoDeleteInFolder
             Invoke((MethodInvoker)delegate { UpdateTextBoxes(); });
             Invoke((MethodInvoker)delegate { CheckConditions(); });
         }
+
         private void CheckConditions()
         {
             bool tooManyFiles = false;

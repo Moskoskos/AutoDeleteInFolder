@@ -45,6 +45,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.txtCurOld = new System.Windows.Forms.TextBox();
             this.lblAge = new System.Windows.Forms.Label();
+            this.lblNoFiles = new System.Windows.Forms.Label();
+            this.txtColor = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnBrowse
@@ -200,11 +202,32 @@
             this.lblAge.TabIndex = 18;
             this.lblAge.Text = " ";
             // 
+            // lblNoFiles
+            // 
+            this.lblNoFiles.AutoSize = true;
+            this.lblNoFiles.Location = new System.Drawing.Point(247, 243);
+            this.lblNoFiles.Name = "lblNoFiles";
+            this.lblNoFiles.Size = new System.Drawing.Size(125, 13);
+            this.lblNoFiles.TabIndex = 20;
+            this.lblNoFiles.Text = "No files in selected folder";
+            this.lblNoFiles.Visible = false;
+            // 
+            // txtColor
+            // 
+            this.txtColor.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.txtColor.Location = new System.Drawing.Point(220, 238);
+            this.txtColor.Name = "txtColor";
+            this.txtColor.Size = new System.Drawing.Size(21, 20);
+            this.txtColor.TabIndex = 21;
+            this.txtColor.Visible = false;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(441, 272);
+            this.Controls.Add(this.txtColor);
+            this.Controls.Add(this.lblNoFiles);
             this.Controls.Add(this.lblAge);
             this.Controls.Add(this.txtCurOld);
             this.Controls.Add(this.label7);
@@ -249,6 +272,8 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtCurOld;
         private System.Windows.Forms.Label lblAge;
+        private System.Windows.Forms.Label lblNoFiles;
+        private System.Windows.Forms.TextBox txtColor;
     }
 }
 
