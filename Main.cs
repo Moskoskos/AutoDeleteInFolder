@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Security.Permissions;
@@ -114,10 +110,11 @@ namespace AutoDeleteInFolder
             int count = 0;
             if (folderPath != "")
             {
-                System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(folderPath);
+                DirectoryInfo dir = new DirectoryInfo(folderPath);
                 count = dir.GetFiles().Length;
             }
             currentAmoutOfFiles = count;
+            //After the number of files has been acquired, do a check to determine if there is zero files or more.
             Invoke((MethodInvoker)delegate { NumOfFilesStatus(); });
             
             
@@ -271,7 +268,7 @@ namespace AutoDeleteInFolder
                optionsArray[3] = folderPath;
                optionsArray[4] = "1";
                   // File.WriteAllLines(optionsFile, options);
-                   using (System.IO.StreamWriter file = new System.IO.StreamWriter(optionsTxtFile))
+                   using (StreamWriter file = new StreamWriter(optionsTxtFile))
                    {
                        foreach (string line in optionsArray)
                        {
