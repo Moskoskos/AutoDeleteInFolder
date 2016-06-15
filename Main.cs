@@ -34,7 +34,7 @@ namespace AutoDeleteInFolder
             try
             {
                 //Finds the default system folder for application data.
-                var systemPath = System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+                var systemPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
                 //States the specifed application folder for the application.
                 var pathWithName = systemPath + @"\AutoDeleteInFolder\";
                 //States the specified application options file.
