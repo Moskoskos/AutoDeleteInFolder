@@ -22,7 +22,7 @@ namespace AutoDeleteInFolder
          {
              if (limit == 0)
              {
-                 limit = 99999999; //Make sure that 0 means unlimited
+                 limit = int.MaxValue; //Make sure that 0 means unlimited
              }
              if (limit < value)
              {
@@ -43,7 +43,7 @@ namespace AutoDeleteInFolder
         {
             if (limit == 0)
             {
-                limit = 99999999;
+                limit = double.MaxValue;
             }
             if (limit < value)
             {

@@ -165,8 +165,7 @@ namespace AutoDeleteInFolder
             }
             catch (Exception ex)
             {
-                
-
+                MessageBox.Show(ex.Message);
             }
         }
         
